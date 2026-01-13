@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Anti Black Mazic</title>
+
+  <style>
+    body{
+      background: black;
+      margin: 0;
+      padding: 0;
+    }
+
+    .Main_Card{
+      font-family: 'Kalpurush', sans-serif;
+      padding: 10px;
+      background-color: black;
+    }
+
+    .Font_Arabic{
+      font-size: 32px;
+      font-family: Arial, sans-serif;
+      color: gold;
+      direction: rtl;
+    }
+
+    .Font_Bangla{
+      font-size: 18px;
+      margin-bottom: 5px;
+      color: olive;
+    }
+    .Font_Uchcharon{
+     font-size: 18px;
+     margin-bottom: 5px;
+     color: teal;
+    }
+    
+    .Font_English{
+      font-size: 16px;
+      color: grey;
+      margin-bottom: 15px;
+    }
+
+    hr{
+      margin: 20px 0;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="Main_Card" id="content"></div>
+
+<script>
+const suraData = [
+  { 
+    id: 1,
+    arabic: "১. بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
+    uchcharon: "বিছমিল্লাহির রাহমানির রাহিম।",
+    bangla: "পরম করুণাময়, অসীম দয়ালু আল্লাহর নামে (শুরু করছি)।",
+    english: "In the Name of Allah, the Most Beneficent, the Most Merciful."
+  
+  },
+  {
+    id: 2,
+    arabic: "২. الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ",
+    uchcharon: "আল হামদুলিল্লা-হি রাব্বিল ‘আ-লামীন।",
+    bangla: "আল্লাহরই জন্য সমস্ত প্রশংসা, যিনি বিশ্বজগতের রাব্ব।",
+    english: "All the praises and thanks be to Allah, the Lord of the 'Alamin."
+  },
+  { 
+    id: 3,
+    arabic: "৩. الرَّحْمَٰنِ الرَّحِيمِ",
+    uchcharon: "আররাহমা-নির রাহীম।",
+    bangla: "যিনি পরম দয়ালু, অতিশয় করুণাময়।",
+    english: "The Most Beneficent, the Most Merciful."
+  },
+  { 
+    id: 4,
+    arabic: "৪. مَالِكِ يَوْمِ الدِّينِ",
+    uchcharon: "মা-লিকি ইয়াওমিদ্দীন।",
+    bangla: "যিনি বিচার দিনের মালিক।",
+    english: "The Only Owner of the Day of Recompense."
+  },
+  {
+    id: 5,
+    arabic: "৫. إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ",
+    uchcharon: "ইয়্যা-কা না‘বুদু ওয়া ইয়্যা-কা নাছতা‘ঈন।",
+    bangla: "আমরা আপনারই ইবাদাত করি এবং আপনারই সাহায্য চাই।",
+    english: "You Alone we worship, and You Alone we ask for help."
+  },
+  {
+    id: 6,
+    arabic: "৬. اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ",
+    uchcharon: "ইহদিনাসসিরা-তাল মুছতাকীম।",
+    bangla: "আমাদেরকে সরল পথ দেখান।",
+    english: "Guide us to the Straight Way."
+  },
+  {
+    id: 7,
+    arabic: "৭. صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ",
+    uchcharon: "সিরা-তাল্লাযীনা আন‘আমতা ‘আলাইহিম । গাইরিল মাগদূ বি ‘আলাইহিম ওয়ালাদ্দাল্লীন।",
+    bangla: "তাদের পথ, যাদের প্রতি আপনি অনুগ্রহ করেছেন; যাদের উপর গযব হয়নি এবং যারা পথভ্রষ্ট হয়নি। আমীন।",
+    english: "The Way of those on whom You have bestowed Your Grace."
+  },
+  { 
+    id: 8,
+    arabic: "১. الٓمٓ",
+    uchcharon: "আলিফ লামমীম।",
+    bangla: "আলিফ-লাম-মীম।",
+    english: "Alif-Lam-Mim. [These letters are one of the miracles of the Quran and none but Allah (Alone) knows their meanings].",
+  
+  },
+  { 
+    id: 9,
+    arabic: "২. ذَٲلِكَ ٱلۡڪِتَـٰبُ لَا رَيۡبَ‌ۛ فِيهِ‌ۛ هُدً۬ى لِّلۡمُتَّقِينَ",
+    uchcharon: "যা-লিকাল কিতা-বুলা-রাইবা ফীহি হুদাল লিলমুত্তাকীন।",
+    bangla: "ইহা ঐ গ্রন্থ যার মধ্যে কোন সন্দেহ-সংশয়ের অবকাশ নেই; ধর্ম-ভীরুদের জন্য এ গ্রন্থ পথনির্দেশ।",
+    english: "This is the Book (the Quran), whereof there is no doubt, a guidance to those who are Al-Muttaqun [the pious and righteous persons who fear Allah much (abstain from all kinds of sins and evil deeds which He has forbidden) and love Allah much (perform all kinds of good deeds which He has ordained)].",
+  
+  },
+  { 
+    id: 10,
+    arabic: "৩. ٱلَّذِينَ يُؤۡمِنُونَ بِٱلۡغَيۡبِ وَيُقِيمُونَ ٱلصَّلَوٰةَ وَمِمَّا رَزَقۡنَـٰهُمۡ يُنفِقُونَ",
+    uchcharon: "আল্লাযীনা ইউ’মিনূনা বিলগাইবি ওয়াইউকীমূনাসসালা-তা ওয়া মিম্মা-রাঝাকনা-হুমইউনফিকূন।",
+    bangla: "যারা অদৃশ্য বিষয়গুলিতে বিশ্বাস স্থাপন করে এবং সালাত প্রতিষ্ঠা করে এবং আমি তাদেরকে যে উপজীবিকা প্রদান করেছি তা হতে দান করে থাকে ।",
+    english: "Who believe in the Ghaib and perform As-Salat (Iqamat-as-Salat), and spend out of what we have provided for them [i.e. give Zakat, spend on themselves, their parents, their children, their wives, etc., and also give charity to the poor and also in Allah's Cause - Jihad, etc.].",
+  },
+  { 
+    id: 11,
+    arabic: "৪. وَٱلَّذِينَ يُؤۡمِنُونَ بِمَآ أُنزِلَ إِلَيۡكَ وَمَآ أُنزِلَ مِن قَبۡلِكَ وَبِٱلۡأَخِرَةِ هُمۡ يُوقِنُونَ",
+    uchcharon: "ওয়াল্লাযীনা ইউ’মিনূনা বিমাউনঝিলা ইলাইকা ওয়ামা উনঝিলা মিন কাবলিকা ওয়াবিল আ-খিরাতি হুম ইউকিনূন।",
+    bangla: "এবং তোমার প্রতি যা অবতীর্ণ হয়েছে ও তোমার পূর্বে যা অবতীর্ণ হয়েছিল, যারা তদ্বিষয়ে বিশ্বাস স্থাপন করে এবং আখিরাতের প্রতি যারা দৃঢ় বিশ্বাস রাখে।",
+    english: "And who believe in (the Quran and the Sunnah) which has been sent down (revealed) to you (Muhammad Peace be upon him) and in [the Taurat (Torah) and the Injeel (Gospel), etc.] which were sent down before you and they believe with certainty in the Hereafter. (Resurrection, recompense of their good and bad deeds, Paradise and Hell, etc.).",
+  
+  },
+  { 
+    id: 12,
+    arabic: "৫. أُوْلَـٰٓٮِٕكَ عَلَىٰ هُدً۬ى مِّن رَّبِّهِمۡ‌ۖ وَأُوْلَـٰٓٮِٕكَ هُمُ ٱلۡمُفۡلِحُونَ",
+    uchcharon: "উলাইকা ‘আলা-হুদাম মিররাব্বিহিম ওয়া উলাইকা হুমুল মুফলিহূন।",
+    bangla: "এরাই তাদের রবের পক্ষ হতে প্রাপ্ত হিদায়াতের উপর প্রতিষ্ঠিত রয়েছে এবং এরাই পূর্ণ সফলকাম।",
+    english: "They are on (true) guidance from their Lord, and they are the successful.",
+  
+  },
+  { 
+    id: 13,
+    arabic: "২৫৫. اللّٰهُ لَآ إِلٰهَ إِلَّا هُوَ ٱلْحَيُّ ٱلْقَيُّومُ‌ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ‌ۚ لَهُۥ مَا فِى ٱلسَّمَـٰوَٰتِ وَمَا فِى ٱلْأَرْضِ‌ۗ مَن ذَا ٱلَّذِى يَشْفَعُ عِندَهُۥٓ إِلَّا بِإِذْنِهِۦ‌ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ‌ۖ وَلَا يُحِيطُونَ بِشَىْءٍ۬ مِّنْ عِلْمِهِۦٓ إِلَّا بِمَا شَآءَ‌ۚ وَسِعَ كُرْسِيُّهُ ٱلسَّمَـٰوَٰتِ وَٱلْأَرْضَ‌ۖ وَلَا يَـَٔودُهُۥ حِفْظُهُمَا‌ۚ وَهُوَ ٱلْعَلِىُّ ٱلْعَظِيمُ",
+    uchcharon: "আল্লা-হু লাইলা-হা ইল্লা-হুওয়া আল হাইয়ুল কাইয়ূমু লা-তা’খুযুহূ ছিনাতুওঁ ওয়ালা-নাওমুন লাহূ মা-ফিছ ছামা-ওয়া-তি ওয়ামা-ফিল আরদি মান যাল্লাযী ইয়াশফা‘উ ‘ইনদাহূইল্লা-বিইযনিহী ইয়া‘লামুমা-বাইনা আইদীহিম ওয়ামা-খালফাহুম ওয়ালা-ইউহ ীতূনা বিশাইইম মিন ‘ইলমিহীইল্লা-বিমা-শাআ ওয়াছি‘আ কুরছিইয়ুহুছ ছামা-ওয়া-তি ওয়াল আরদা ওয়ালা-ইয়াঊদুহু হিফজু হুমা-ওয়া হুওয়াল ‘আলিইয়ূল ‘আজীম।",
+    bangla: "আল্লাহ, তিনি ছাড়া কোন (সত্য) ইলাহ নেই, তিনি চিরঞ্জীব, সুপ্রতিষ্ঠিত ধারক। তাঁকে তন্দ্রা ও নিদ্রা স্পর্শ করে না। তাঁর জন্যই আসমানসমূহে যা রয়েছে তা এবং যমীনে যা আছে তা। কে সে, যে তাঁর নিকট সুপারিশ করবে তাঁর অনুমতি ছাড়া? তিনি জানেন যা আছে তাদের সামনে এবং যা আছে তাদের পেছনে। আর তারা তাঁর জ্ঞানের সামান্য পরিমাণও আয়ত্ব করতে পারে না, তবে তিনি যা চান তা ছাড়া। তাঁর কুরসী আসমানসমূহ ও যমীন পরিব্যাপ্ত করে আছে এবং এ দু’টোর সংরক্ষণ তাঁর জন্য বোঝা হয় না। আর তিনি সুউচ্চ, মহান। (আয়াতুল কুরসী)",
+    english: "Allah! La ilaha illa Huwa (none has the right to be worshipped but He), the Ever Living, the One Who sustains and protects all that exists. Neither slumber, nor sleep overtake Him. To Him belongs whatever is in the heavens and whatever is on earth. Who is he that can intercede with Him except with His Permission? He knows what happens to them (His creatures) in this world, and what will happen to them in the Hereafter. And they will never compass anything of His Knowledge except that which He wills. His Kursi extends over the heavens and the earth, and He feels no fatigue in guarding and preserving them. And He is the Most High, the Most Great. [This Verse 2:255 is called Ayat-ul-Kursi.]",
+  
+  },
+  { 
+    id: 14,
+    arabic: "২৫৬.  لَآ إِكْرَاهَ فِى ٱلدِّينِ‌ۖ  قَد تَّبَيَّنَ ٱلرُّشْدُ مِنَ ٱلْغَىِّ‌ۚ  فَمَن يَكْفُرْ بِٱلطَّـٰغُوتِ وَيُؤْمِنۢ بِٱللَّهِ فَقَدِ ٱسْتَمْسَكَ بِٱلْعُرْوَةِ ٱلْوُثْقَىٰ لَا ٱنفِصَامَ لَهَا‌ۗ وَٱللَّهُ سَمِيعٌ عَلِيمٌ",
+    uchcharon: "লাইকরা-হা ফিদ্দীনি কাততাবাইইয়ানার রুশদু মিনাল গাইয়ি ফামাইঁ ইয়াকফুর বিত্তা-গূতি ওয়া ইউ’মিমবিল্লা-হি ফাকাদিছ তামছাকা বিল‘উরওয়াতিল উছকা লানফিসা-মা লাহা-ওয়াল্লা-হু ছামী‘উন ‘আলীম।",
+    bangla: "দীনের ব্যাপারে কোন জবরদস্তি কিংবা বাধ্যবাধকতা নেই। নিশ্চয়ই ভ্রান্তি হতে সুপথ প্রকাশিত হয়েছে। অতএব যে তাগুতকে অবিশ্বাস করে এবং আল্লাহর প্রতি বিশ্বাস স্থাপন করে সে দৃঢ়তর রজ্জুকে আঁকড়ে ধরলো যা কখনও ছিন্ন হবার নয় এবং আল্লাহ শ্রবণকারী, মহাজ্ঞানী।",
+    english: "There is no compulsion in religion. Verily, the Right Path has become distinct from the wrong path. Whoever disbelieves in Taghut and believes in Allah, then he has grasped the most trustworthy handhold that will never break. And Allah is All-Hearer, All-Knower.",
+   },
+   { 
+    id: 15,
+    arabic: "",
+    uchcharon: "",
+    bangla: "",
+    english: "",
+   
+   },
+   { 
+    id: 16,
+    arabic: "",
+    uchcharon: "",
+    bangla: "",
+    english: "",
+   },
+   { 
+    id: 17,
+    arabic: "",
+    uchcharon: "",
+    bangla: "",
+    english: "",
+   },
+   { 
+    id: 18,
+    arabic: "",
+    uchcharon: "",
+    bangla: "",
+    english: "",
+   },
+   { 
+    id: 19,
+    arabic: "",
+    uchcharon: "",
+    bangla: "",
+    english: "",
+   },
+   { 
+    id: 20,
+    arabic: "",
+    uchcharon: "",
+    bangla: "",
+    english: "",
+   },
+   { 
+    id: 21,
+    arabic: "",
+    uchcharon: "",
+    bangla: "",
+    english: "",
+   },
+   { 
+    id: 22,
+    arabic: "",
+    uchcharon: "",
+    bangla: "",
+    english: "",
+   },
+   { 
+    id: 23,
+    arabic: "",
+    uchcharon: "",
+    bangla: "",
+    english: "",
+   },
+   { 
+    id: 24,
+    arabic: "",
+    uchcharon: "",
+    bangla: "",
+    english: "",
+   },
+   { 
+    id: 25,
+    arabic: "",
+    uchcharon: "",
+    bangla: "",
+    english: "",
+   },
+   { 
+    id: 26,
+    arabic: "",
+    uchcharon: "",
+    bangla: "",
+    english: "",
+   },
+   { 
+    id: 27,
+    arabic: "",
+    uchcharon: "",
+    bangla: "",
+    english: "",
+   },
+   { 
+    id: 28,
+    arabic: "",
+    uchcharon: "",
+    bangla: "",
+    english: "",
+   },
+   { 
+    id: 29,
+    arabic: "",
+    uchcharon: "",
+    bangla: "",
+    english: "",
+   },
+   { 
+    id: 30,
+    arabic: "",
+    uchcharon: "",
+    bangla: "",
+    english: "",
+   },
+   { 
+    id: 31,
+    arabic: "",
+    uchcharon: "",
+    bangla: "",
+    english: "",
+   },
+   { 
+    id: 32,
+    arabic: "",
+    uchcharon: "",
+    bangla: "",
+    english: "",
+   },
+   { 
+    id: 33,
+    arabic: "",
+    uchcharon: "",
+    bangla: "",
+    english: "",
+   },
+   { 
+    id: 34,
+    arabic: "",
+    uchcharon: "",
+    bangla: "",
+    english: "",
+   },
+   { 
+    id: 35,
+    arabic: "",
+    uchcharon: "",
+    bangla: "",
+    english: "",
+   },
+   { 
+    id: 36,
+    arabic: "",
+    uchcharon: "",
+    bangla: "",
+    english: "",
+   },
+   { 
+    id: 37,
+    arabic: "",
+    uchcharon: "",
+    bangla: "",
+    english: "",
+   },
+   { 
+    id: 38,
+    arabic: "",
+    uchcharon: "",
+    bangla: "",
+    english: "",
+   },
+   { 
+    id: 39,
+    arabic: "",
+    uchcharon: "",
+    bangla: "",
+    english: "",
+   },
+   
+  
+  
+  
+  
+  
+  /*----
+  
+  { 
+    id: 1,
+    arabic: "",
+    uchcharon: "",
+    bangla: "",
+    english: "",
+  
+  },
+  
+  -----*/
+  
+];
+
+const container = document.getElementById("content");
+
+suraData.forEach(item => {
+  container.innerHTML += `
+    <p class="Font_Arabic">${item.arabic}</p>
+    <p class="Font_Uchcharon">${item.uchcharon}</p>
+    <p class="Font_Bangla">${item.bangla}</p>
+    <p class="Font_English">${item.english}</p>
+  `;
+});
+
+container.innerHTML += "<hr>";
+</script>
+
+</body>
+</html>
